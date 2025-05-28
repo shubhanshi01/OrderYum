@@ -1,13 +1,13 @@
 import React from 'react'
 import { View ,Text,StyleSheet,StatusBar,TextInput,TouchableOpacity} from 'react-native';
-import { useFonts } from './assets/fonts';
-const Login = () => {
+
+const Signup = () => {
   return (
     <View style={styles.container}> 
           <StatusBar backgroundColor={'#FA812F'} />
           <View Style={{paddingVertical:12,width:'95%',alignSelf:'center',MarginBottom:10}}>
-          <Text style={{alignSelf:'center',fontSize:25,fontWeight:'700',padding:(12,4),color:"#FA4032",fontStyle:""}}>LOGIN</Text>
-          <Text style={styles.title}></Text>
+          <Text style={{alignSelf:'center',fontSize:25,fontWeight:'700',}}>Signup</Text>
+    
           <TextInput
             placeholder="Email"
             keyboardType='email-address'
@@ -33,7 +33,7 @@ const Login = () => {
     
           <View style={{marginTop:20,alignSelf:'center',flexDirection:'row',justifyContent:"space-between"}}>
           <View style={{paddingLeft:10}}></View>
-            <Text>Don't have an account?</Text> <Text style={styles.registerLink}>Sign up</Text>
+            <Text>Already have an account?</Text> <Text style={styles.registerLink}>Login</Text>
           </View>
         </View>
         
@@ -42,35 +42,22 @@ const Login = () => {
   )
 }
 
-export default Login;
+export default Signup;
 
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#FEF3E2',
-      // alignItems: 'center',
+      backgroundColor: '#ffff',
+      alignItems: 'center',
       justifyContent: 'center',
       padding: 20,
-      width: '100%',
     },
     title: {
       fontSize: 32,
       fontWeight: 'bold',
       color: '#F8ED8C',
       marginBottom: 40,
-      textAlign: 'center',
-      marginHorizontal: 20,
-      padding: (10,20),
-      
     },
-    antonregular:
-    {
-      fontfamily:( "Anton", "sans-serif"),
-      fontweight: 400,
-      fontstyle: normal,
-    }
-    
-    ,
     input: {
       width: '100%',
       backgroundColor: '#FFf',
