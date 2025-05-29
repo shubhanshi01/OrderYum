@@ -1,13 +1,14 @@
 import React from 'react'
 import { View ,Text,StyleSheet,StatusBar,TextInput,TouchableOpacity} from 'react-native';
-import { useFonts } from './assets/fonts';
 const Login = () => {
   return (
     <View style={styles.container}> 
           <StatusBar backgroundColor={'#FA812F'} />
+          
           <View Style={{paddingVertical:12,width:'95%',alignSelf:'center',MarginBottom:10}}>
           <Text style={{alignSelf:'center',fontSize:25,fontWeight:'700',padding:(12,4),color:"#FA4032",fontStyle:""}}>LOGIN</Text>
           <Text style={styles.title}></Text>
+          <View>
           <TextInput
             placeholder="Email"
             keyboardType='email-address'
@@ -20,12 +21,9 @@ const Login = () => {
             secureTextEntry
             style={styles.input}
           />
-          <TextInput
-            placeholder="Confirm Password"
-            placeholderTextColor="#888"
-            secureTextEntry
-            style={styles.input}
-          />
+
+          </View>
+
     
           <TouchableOpacity style={styles.loginButton} onPress={()=>alert('Account Created Successfully')}>
             <Text style={styles.loginButtonText}>Login</Text>
@@ -62,14 +60,7 @@ const styles = StyleSheet.create({
       marginHorizontal: 20,
       padding: (10,20),
       
-    },
-    antonregular:
-    {
-      fontfamily:( "Anton", "sans-serif"),
-      fontweight: 400,
-      fontstyle: normal,
     }
-    
     ,
     input: {
       width: '100%',
