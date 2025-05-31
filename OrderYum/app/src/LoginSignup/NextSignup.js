@@ -1,44 +1,48 @@
 import React from 'react'
 import { View ,Text,StyleSheet,StatusBar,TextInput,TouchableOpacity} from 'react-native';
-import NextSignup from './NextSignup';
 import Login from './Login';
+import { createStackNavigator } from '@react-navigation/stack';
 
-const Signup = ({navigation}) => {
+const NextSignup = ({navigation}) => {
   return (
     <View style={styles.container}> 
           <StatusBar backgroundColor={'#FA812F'} />
           <View style={{paddingVertical:12, width:'95%', alignSelf:'center', marginBottom:10}}>
-          <Text style={{alignSelf:'center',fontSize:25,fontWeight:'700',color:'#FA4032',fontStyle:''}}>Sign Up</Text>
+          <Text style={{alignSelf:'center',fontSize:25,fontWeight:'700',padding:(12,14),color:"#FA4032",fontStyle:""}}>Sign Up</Text>
     
           <TextInput
-            placeholder="Email"
-            keyboardType='email-address'
+            placeholder="First Name"
             placeholderTextColor="#888"
             style={styles.input}
           />
           <TextInput
-            placeholder="Password"
+            placeholder="Last Name"
             placeholderTextColor="#888"
-            secureTextEntry
             style={styles.input}
           />
           <TextInput
-            placeholder="Confirm Password"
+            placeholder="Address"
+            keyboardType='default'
             placeholderTextColor="#888"
-            secureTextEntry
+            style={styles.input}
+          />
+          <TextInput
+            placeholder="Phone Number"
+            keyboardType='phone-pad'
+            placeholderTextColor="#888"
             style={styles.input}
           />
     
-          <TouchableOpacity style={styles.loginButton} onPress={()=>navigation.navigate("NextSignup")}> 
-            <Text style={styles.buttonText}>Continue</Text>
-            </TouchableOpacity>
-
-            <View style={{marginTop:20, alignSelf:'center', flexDirection:'row', justifyContent:'center'}}>
-  <Text>
-    Already have an account?{' '}
-    <Text style={styles.registerLink} onPress={()=>navigation.navigate('Login')}>Login</Text>
-  </Text>
-</View>
+          <TouchableOpacity style={styles.loginButton} onPress={()=>alert('Account Created Successfully')}>
+            <Text style={styles.buttonText}>SignUp</Text>
+          </TouchableOpacity>
+    
+          <View style={{marginTop:20,alignSelf:'center',flexDirection:'row',justifyContent:'center'}}>
+            <Text>
+              Already have an account?{' '}
+              <Text style={styles.registerLink} onPress={()=>navigation.navigate('Login')}>Login</Text>
+            </Text>
+          </View>
         </View>
         
     </View>
@@ -46,7 +50,7 @@ const Signup = ({navigation}) => {
   )
 }
 
-export default Signup;
+export default NextSignup;
 
 const styles = StyleSheet.create({
     container: {
@@ -64,8 +68,7 @@ const styles = StyleSheet.create({
       marginBottom: 40,
       textAlign: 'center',
       marginHorizontal: 20,
-      paddingVertical: 10,
-      paddingHorizontal: 20,
+      padding: (10,20),
       
     }
     ,
@@ -101,4 +104,5 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
     },
 });
+
 

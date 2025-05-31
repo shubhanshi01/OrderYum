@@ -1,6 +1,7 @@
 import React from 'react'
 import { View ,Text,StyleSheet,StatusBar,TextInput,TouchableOpacity} from 'react-native';
-const Login = () => {
+
+const Login = ({ navigation }) => {
   return (
     <View style={styles.container}> 
           <StatusBar backgroundColor={'#FA812F'} />
@@ -31,7 +32,7 @@ const Login = () => {
     
           <View style={{marginTop:20,alignSelf:'center',flexDirection:'row',justifyContent:"space-between"}}>
           <View style={{paddingLeft:10}}></View>
-            <Text>Don't have an account?</Text> <Text style={styles.registerLink}>Sign up</Text>
+            <Text>Don't have an account?</Text> <Text style={styles.registerLink} onPress={()=>navigation.navigate('SignUp')}>Sign up</Text>
           </View>
         </View>
         
@@ -94,5 +95,5 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
     },
 });
-  
+
 
