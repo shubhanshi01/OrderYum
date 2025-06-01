@@ -158,6 +158,8 @@ const styles = StyleSheet.create({
   cardImage: {
     width: 120,
     height: 120,
+    paddingRight: 16,
+    marginLeft: 16,
     resizeMode: 'cover',
     borderTopLeftRadius: 16,
     borderBottomLeftRadius: 16,
