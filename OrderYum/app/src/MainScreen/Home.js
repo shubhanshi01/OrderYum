@@ -1,64 +1,65 @@
 import React from 'react'
 import { View } from 'react-native'
-import { Text,StyleSheet, StatusBar, TextInput, ScrollView } from 'react-native';
+import { Text, StyleSheet, StatusBar, TextInput, ScrollView } from 'react-native';
 import Header from '../Component/Header';
 import OfferSlider from '../Component/OfferSlider'; 
+import Recommended from '../Component/Recommended';
+
+const food = {
+    categories: ['Pizza', 'Burger', 'Salad', 'Dessert', 'Drinks'],
+    recommended: [
+        { name: 'Margherita Pizza', desc: 'Classic pizza with fresh basil and mozzarella' },
+        { name: 'Cheeseburger', desc: 'Juicy beef patty with cheese and all the fixings' },
+        { name: 'California Roll', desc: 'Sushi roll with crab, avocado, and cucumber' },
+        { name: 'Caesar Salad', desc: 'Crisp romaine lettuce with Caesar dressing and croutons' },
+    ]
+};
 
 const Home = () => {
-return (
-    <View style={styles.container}>
-        <StatusBar backgroundColor={'#FA812F'} barStyle="light-content" />
-        <Header />
-        
-        <View style={styles.searchSection}>
-            <TextInput
-                style={styles.searchInput}
-                placeholder="Search for food or restaurants"
-                placeholderTextColor="#aaa"
-            />
-        </View>
-        <View style={styles.sectionTitle}>
-            <Text style={styles.titleText}>Popular Categories</Text>
-        </View>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.categories}>
-            {/* Example categories as buttons */}
-            <View style={styles.categoryCard}>
-                <Text style={styles.categoryText} onPress={() => {}} accessibilityRole="button">🍕 Pizza</Text>
-            </View>
-            <View style={styles.categoryCard}>
-                <Text style={styles.categoryText} onPress={() => {}} accessibilityRole="button">🍔 Burger</Text>
-            </View>
-            <View style={styles.categoryCard}>
-                <Text style={styles.categoryText} onPress={() => {}} accessibilityRole="button">🍣 Sushi</Text>
-            </View>
-            <View style={styles.categoryCard}>
-                <Text style={styles.categoryText} onPress={() => {}} accessibilityRole="button">🥗 Salad</Text>
-            </View>
-        </ScrollView>
-        
-        <View style={styles.sectionTitle}>
-        <View >
-        <OfferSlider />
-        </View>
-        <View style={{marginTop: 20}} />
-            <Text style={styles.titleText}>Recommended For You</Text>
-        </View>
-        
-        <ScrollView style={styles.recommended}>
-            
-            <View style={styles.foodCard}>
-                <Text style={styles.foodName}>Margherita Pizza</Text>
-                <Text style={styles.foodDesc}>Classic delight with 100% real mozzarella cheese</Text>
-            </View>
-            <View style={styles.foodCard}>
-                <Text style={styles.foodName}>Veggie Burger</Text>
-                <Text style={styles.foodDesc}>Loaded with fresh veggies and sauces</Text>
-            </View>
-        </ScrollView>
-        
-    </View>
+    return (
+        <View style={styles.container}>
+            <ScrollView showsVerticalScrollIndicator={false}>
+            <StatusBar backgroundColor={'#FA812F'} barStyle="light-content" />
+            <Header />
 
-)
+            <View style={styles.searchSection}>
+                <TextInput
+                    style={styles.searchInput}
+                    placeholder="Search for food or restaurants"
+                    placeholderTextColor="#aaa"
+                />
+            </View>
+            <View style={styles.sectionTitle}>
+                <Text style={styles.titleText}>Popular Categories</Text>
+            </View>
+            <View style={styles.categories}>
+                <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.categories}>
+                    {food.categories.map((category, idx) => (
+                        <View style={styles.categoryCard} key={idx}>
+                            <Text
+                                style={styles.categoryText}
+                                onPress={() => {}}
+                                accessibilityRole="button"
+                            >
+                                {category}
+                            </Text>
+                        </View>
+                    ))}
+                </ScrollView>
+            </View>
+
+            <View style={styles.sectionTitle}>
+                <View>
+                    <OfferSlider />
+                </View>
+                <View style={{ marginTop: 20 }} />
+                <Text style={styles.titleText}>Recommended For You</Text>
+            </View>
+
+            <Recommended />
+            </ScrollView>
+        </View>
+    )
 }
 
 export default Home;
@@ -68,8 +69,6 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#FEF3E2',
     },
-
-   
     searchSection: {
         paddingHorizontal: 20,
         marginVertical: 10,
@@ -99,9 +98,12 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         borderRadius: 10,
         marginRight: 10,
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     categoryText: {
-        fontSize: 16,
+        fontSize: 20,
     },
     recommended: {
         paddingHorizontal: 20,
