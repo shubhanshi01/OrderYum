@@ -1,16 +1,18 @@
 import React from 'react'
-import Appstack from './Appstack'
 import AuthStack from './AuthStack'
-import { View } from 'react-native'
-import { NavigationContainer } from '@react-navigation/native'
+import Appstack from './Appstack'
+import { View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+
 
 const AppNav = () => {
   return (
-    <>
-      <Appstack/>
-      {/* <AuthStack/> */}
-
-    </>
+    <View style={{ flex: 1, backgroundColor: '#FEF3E2' }}>
+      
+        {/* Uncomment the line below to enable authentication stack */}
+        {/* <AuthStack /> */}
+        <Appstack />
+    </View>
   )
 }
 

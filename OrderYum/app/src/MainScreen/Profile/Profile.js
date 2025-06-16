@@ -1,9 +1,14 @@
-import React from 'react'
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
+import EditProfile from './EditProfile';
+import React from 'react';
+import { useNavigation } from '@react-navigation/native';
+import MyOrders from './MyOrdersScreen/MyOrders';
+import Settings from './Settings/Settings';
+import Cart from '../Cart';
 
-const Profile = () => (
+const Profile = ({navigation}) => (
   <View style={styles.container}>
-    <Image source={require('../Component/images/header.jpg')} style={styles.coverImage} />
+    <Image source={require('../../Component/images/header.jpg')} style={styles.coverImage} />
     <View style={styles.profileContent}>
       <Text style={styles.name}>Shubhanshi Gupta</Text>
       <Text style={styles.email}>shubhanshi@example.com</Text>
@@ -15,16 +20,16 @@ const Profile = () => (
         <Text style={styles.infoLabel}>Address:</Text>
         <Text style={styles.infoValue}>123, Main Street, Delhi</Text>
       </View>
-      <TouchableOpacity style={styles.profileButton} onPress={() => {/* navigate to Orders */}}>
+      <TouchableOpacity style={styles.profileButton} onPress={() => {navigation.navigate(MyOrders)}}>
         <Text style={styles.profileButtonText}>My Orders</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.profileButton} onPress={() => {/* navigate to Cart */}}>
+      <TouchableOpacity style={styles.profileButton} onPress={() => {navigation.navigate(Cart)}}>
         <Text style={styles.profileButtonText}>My Cart</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.profileButton} onPress={() => {/* navigate to Settings */}}>
+      <TouchableOpacity style={styles.profileButton} onPress={() => {navigation.navigate(Settings)}}>
         <Text style={styles.profileButtonText}>Settings</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.editButton}>
+      <TouchableOpacity style={styles.editButton} onPress={() => {navigation.navigate(EditProfile)}}>
         <Text style={styles.editButtonText}>Edit Profile</Text>
       </TouchableOpacity>
     </View>
@@ -41,16 +46,16 @@ const styles = StyleSheet.create({
   coverImage: {
     width: '100%',
     height: 200,
+    position: 'absolute',
+    top: 0,
+    left: 0,
     resizeMode: 'cover',
-    borderBottomLeftRadius: 32,
-    borderBottomRightRadius: 32,
-    marginBottom: 0,
   },
   profileContent: {
     width: '90%',
     backgroundColor: '#fff',
     borderRadius: 24,
-    marginTop: -40,
+    marginTop: 160,
     alignItems: 'center',
     paddingVertical: 32,
     paddingHorizontal: 20,

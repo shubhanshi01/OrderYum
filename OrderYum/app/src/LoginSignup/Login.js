@@ -32,7 +32,7 @@ const Login = ({ navigation }) => {
     
           <View style={{marginTop:20,alignSelf:'center',flexDirection:'row',justifyContent:"space-between"}}>
           <View style={{paddingLeft:10}}></View>
-            <Text>Don't have an account?</Text> <Text style={styles.registerLink} onPress={()=>navigation.navigate('SignUp')}>Sign up</Text>
+            <Text>Don't have an account?</Text> <Text style={styles.registerLink} onPress={()=>navigation.navigate('Signup')}>Sign up</Text>
           </View>
         </View>
         
@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#FEF3E2',
-      // alignItems: 'center',
       justifyContent: 'center',
       padding: 20,
       width: '100%',
@@ -55,7 +54,7 @@ const styles = StyleSheet.create({
     title: {
       fontSize: 32,
       fontWeight: 'bold',
-      color: '#F8ED8C',
+      color: 'black',
       marginBottom: 40,
       textAlign: 'center',
       marginHorizontal: 20,

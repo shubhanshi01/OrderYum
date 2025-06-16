@@ -6,8 +6,11 @@ import Home from '../MainScreen/Home';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import Cart from '../MainScreen/Cart';
-import Profile from '../MainScreen/Profile';
+import Profile from '../MainScreen/Profile/Profile';
 import Meals from '../MainScreen/Meals'
+import Settings from '../MainScreen/Profile/Settings/Settings';
+import EditProfile from '../MainScreen/Profile/EditProfile';
+import MyOrders from '../MainScreen/Profile/MyOrdersScreen/MyOrders';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -42,6 +45,10 @@ const Appstack = () => {
     return (
         <Stack.Navigator initialRouteName="MainTabs">
           <Stack.Screen name="MainTabs" component={MainTabs} options={{ headerShown: false }} />
+          <Stack.Screen name="EditProfile" component={EditProfile} options={{ title: 'Edit Profile', headerShown: true, headerTintColor: '#FA812F' }} />
+          <Stack.Screen name="Settings" component={Settings} options={{ title: 'Settings', headerShown: true, headerTintColor: '#FA812F' }} />
+          <Stack.Screen name="MyOrders" component={MyOrders} options={{ title: 'My Orders', headerShown: true, headerTintColor: '#FA812F' }} />
+          <Stack.Screen name="Cart" component={Cart} options={{ title: 'Cart', headerShown: true, headerTintColor: '#FA812F' }} />
         </Stack.Navigator>
 
   );

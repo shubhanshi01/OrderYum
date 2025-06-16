@@ -5,20 +5,16 @@ if (typeof setImmediate === 'undefined') {
 
 import React from 'react';
 import { StatusBar, View } from 'react-native';
-import Login from './src/LoginSignup/Login';
-import Signup from './src/LoginSignup/Signup';
-import NextSignup from './src/LoginSignup/NextSignup';
 import { NavigationContainer } from '@react-navigation/native';
 import AppNav from './src/Navigation/AppNav';
+
 export default function App() {
   return (
-    <View style={{ flex: 1, backgroundColor: '#FEF3E2' }}>
-      <StatusBar barStyle="dark-content" />
-      {/* <Login />
-      <Signup />
-      <NextSignup /> */}
-      <AppNav/>
-    </View>
+    
+      <View style={{ flex: 1, backgroundColor: '#FEF3E2' }}>
+        <StatusBar barStyle="dark-content" />
+        <AppNav/>
+      </View>
   );
 }
 

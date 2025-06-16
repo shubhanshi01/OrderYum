@@ -3,7 +3,7 @@ import Login from '../LoginSignup/Login';
 import Signup from '../LoginSignup/Signup';
 import NextSignup from '../LoginSignup/NextSignup';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NavigationContainer } from '@react-navigation/native';
+
 
 const Stack = createNativeStackNavigator();
 
