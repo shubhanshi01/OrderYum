@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
+import TrackOrder from './TrackOrder';
 const orders = [
   {
     id: 'ORD-445545ad',
@@ -21,7 +22,7 @@ const orders = [
   },
 ];
 
-const MyOrders = (navigation) => {
+const MyOrders = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Order History</Text>
@@ -35,7 +36,7 @@ const MyOrders = (navigation) => {
               <Text style={styles.cardDesc}>Items: {order.items.join(', ')}</Text>
               <Text style={styles.cardPrice}>Total: {order.total}</Text>
               <Text style={styles.cardStatus}>{order.status}</Text>
-              <TouchableOpacity style={styles.addButton} onPress={() => {}}>
+              <TouchableOpacity style={styles.addButton} onPress={() => {navigation.navigate('TrackOrder')}}>
                 <Text style={styles.addButtonText}>Track Order</Text>
               </TouchableOpacity>
             </View>

@@ -23,7 +23,8 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "icon": "./assets/images/icon.png"
+      "icon": "./assets/images/icon.png",
+      "package": "com.anonymous.OrderYum"
     },
     "web": {
       "bundler": "metro",
@@ -44,6 +45,12 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "a71f63f1-6ec3-4295-ae59-7182bb3dabf5"
+      }
     }
   }
 }

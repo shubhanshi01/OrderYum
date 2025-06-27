@@ -11,6 +11,7 @@ import Meals from '../MainScreen/Meals'
 import Settings from '../MainScreen/Profile/Settings/Settings';
 import EditProfile from '../MainScreen/Profile/EditProfile';
 import MyOrders from '../MainScreen/Profile/MyOrdersScreen/MyOrders';
+import TrackOrder from '../MainScreen/Profile/MyOrdersScreen/TrackOrder';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -48,6 +49,7 @@ const Appstack = () => {
           <Stack.Screen name="EditProfile" component={EditProfile} options={{ title: 'Edit Profile', headerShown: true, headerTintColor: '#FA812F' }} />
           <Stack.Screen name="Settings" component={Settings} options={{ title: 'Settings', headerShown: true, headerTintColor: '#FA812F' }} />
           <Stack.Screen name="MyOrders" component={MyOrders} options={{ title: 'My Orders', headerShown: true, headerTintColor: '#FA812F' }} />
+          <Stack.Screen name="TrackOrder" component={TrackOrder} options={{ title: 'Track Order', headerShown: true, headerTintColor: '#FA812F' }} />
           <Stack.Screen name="Cart" component={Cart} options={{ title: 'Cart', headerShown: true, headerTintColor: '#FA812F' }} />
         </Stack.Navigator>
 

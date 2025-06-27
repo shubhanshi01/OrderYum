@@ -6,22 +6,19 @@ const Settings = () => {
     <View style={styles.container}>
       <Text style={styles.title}>Settings</Text>
       <TouchableOpacity style={styles.Themestyle}>
-        Notifications
+        <Text style={styles.text}>Notifications</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.Themestyle}>
-        Change Password
+      <Text style={styles.text}>Change Password</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.Themestyle}>
-        Theme colors
+      <Text style={styles.text}> About App</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.Themestyle}>
-        About App
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.Themestyle}>
-        Share app
+      <Text  style={styles.text} > Share app</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.logoutButton}>
-        Log Out
+      <Text style={styles.LogText}> Log Out</Text>
     </TouchableOpacity>
     </View>
     
@@ -29,6 +26,12 @@ const Settings = () => {
 };
 
 const styles = StyleSheet.create({
+  LogText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -42,8 +45,9 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   text: {
-    fontSize: 16,
-    color: '#333',
+    fontSize: 20,
+    color: '#FA812F',
+
   },
   logoutButton:{
     marginTop: 28,
