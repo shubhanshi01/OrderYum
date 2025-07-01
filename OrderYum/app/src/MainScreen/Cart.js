@@ -1,8 +1,8 @@
 import React from 'react'
-import {View,Text} from 'react-native'
+import {View,Text,ScrollView} from 'react-native'
 import { useState } from 'react';
 import { FlatList, Image, TouchableOpacity, StyleSheet } from 'react-native';
-
+import Home from './Home';
 const CartList = {
     Name: 'Paneer Tikka',
     price: 200,
@@ -14,9 +14,10 @@ const Cart = ({navigation}) => {
     return(
 
         <View styles={styles.maincontainer}>
+        <ScrollView showsVerticalScrollIndicator={false}>       
             <View style={{backgroundColor:'#FA812F', height:60, width:'100%', justifyContent:'center', alignItems:'center'}}>
 
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>navigation.navigate(Home)}>
                 <Text style={styles.button}>Close</Text>
             </TouchableOpacity>
 
@@ -37,6 +38,7 @@ const Cart = ({navigation}) => {
             </View>
           </View>
         </View>
+        </ScrollView>
     </View>
     )
 }

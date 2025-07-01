@@ -1,16 +1,36 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, TextInput, StyleSheet, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
-
+import {firebase,db} from '../../../firebaseConfig';
+import { collection,getDocs } from 'firebase/firestore';
+import { useContext } from 'react';
+import { AuthContext } from '../../Context/AuthContext';
 const EditProfile = ({ navigation }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
 
-  const handleSave = () => {
-    // Here you would typically update the user profile in your backend or context
-    navigation.goBack();
+  const {data1}=useContext(AuthContext);
+  console.log("Context data")
+  const handleSave = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, "UserProfiles"));
+      console.log("📄 Total documents:", querySnapshot.size);
+
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        console.log("🧾 Document ID:", doc.id);
+        console.log("🧾 Data:", data);
+      });
+
+      console.log("✅ Data fetched successfully!");
+    } catch (error) {
+      console.error("❌ Error fetching documents:", error.message);
+    }
   };
+  useEffect(()=>{
+    handleSave();
+  }, []);
 
   return (
     <KeyboardAvoidingView

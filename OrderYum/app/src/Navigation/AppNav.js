@@ -10,8 +10,8 @@ const AppNav = () => {
     <View style={{ flex: 1, backgroundColor: '#FEF3E2' }}>
       
         {/* Uncomment the line below to enable authentication stack */}
-        {/* <AuthStack /> */}
-        <Appstack />
+        <AuthStack />
+        {/* <Appstack /> */}
     </View>
   )
 }

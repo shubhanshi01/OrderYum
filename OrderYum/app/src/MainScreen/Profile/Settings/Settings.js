@@ -1,17 +1,19 @@
 import React from 'react';
 import { View, Text, StyleSheet, Touchable, TouchableOpacity } from 'react-native';
-
-const Settings = () => {
+import AboutApp from './AboutApp/AboutApp';
+import ChangePassword from './ChangePassword/ChangePassword';
+import Notification from './Notification/Notification';
+const Settings = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Settings</Text>
-      <TouchableOpacity style={styles.Themestyle}>
+      <TouchableOpacity style={styles.Themestyle} onPress={() => {navigation.navigate(Notification)}}>
         <Text style={styles.text}>Notifications</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.Themestyle}>
+      <TouchableOpacity style={styles.Themestyle} onPress={()=> {navigation.navigate(ChangePassword)}}>
       <Text style={styles.text}>Change Password</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.Themestyle}>
+      <TouchableOpacity style={styles.Themestyle} onPress={() => {navigation.navigate(AboutApp)}}>
       <Text style={styles.text}> About App</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.Themestyle}>

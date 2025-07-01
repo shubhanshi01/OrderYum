@@ -1,7 +1,7 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
-import { View, Text } from 'react-native';
+import { View, Text, ImageComponent } from 'react-native';
 import Home from '../MainScreen/Home';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
@@ -12,7 +12,9 @@ import Settings from '../MainScreen/Profile/Settings/Settings';
 import EditProfile from '../MainScreen/Profile/EditProfile';
 import MyOrders from '../MainScreen/Profile/MyOrdersScreen/MyOrders';
 import TrackOrder from '../MainScreen/Profile/MyOrdersScreen/TrackOrder';
-
+import AboutApp from '../MainScreen/Profile/Settings/AboutApp/AboutApp';
+import ChangePassword from '../MainScreen/Profile/Settings/ChangePassword/ChangePassword';
+import Notification from '../MainScreen/Profile/Settings/Notification/Notification';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -51,6 +53,9 @@ const Appstack = () => {
           <Stack.Screen name="MyOrders" component={MyOrders} options={{ title: 'My Orders', headerShown: true, headerTintColor: '#FA812F' }} />
           <Stack.Screen name="TrackOrder" component={TrackOrder} options={{ title: 'Track Order', headerShown: true, headerTintColor: '#FA812F' }} />
           <Stack.Screen name="Cart" component={Cart} options={{ title: 'Cart', headerShown: true, headerTintColor: '#FA812F' }} />
+          <Stack.Screen name="AboutApp" component={AboutApp} options={{ title: 'About App', headerShown: true, headerTintColor: '#FA812F' }} />
+          <Stack.Screen name="ChangePassword" component={ChangePassword} options={{ title: 'Change Password', headerShown: true, headerTintColor: '#FA812F' }} />
+          <Stack.Screen name="Notification" component={Notification} options={{ title: 'notification', headerShown: true, headerTintColor: '#FA812F' }} />
         </Stack.Navigator>
 
   );

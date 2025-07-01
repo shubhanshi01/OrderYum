@@ -1,9 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View ,Text,StyleSheet,StatusBar,TextInput,TouchableOpacity} from 'react-native';
 import NextSignup from './NextSignup';
 import Login from './Login';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { firebase,auth } from '../../firebaseConfig';
 
-const Signup = ({navigation}) => {
+const Signup = ({ navigation }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [cpassword, setCPassword] = useState("");
+
+  const createAccountHandle = async () => {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth,email, password);
+      const uid = userCredential.user.uid;
+      console.log("Account Created Successfully, UID:", userCredential.user.uid);
+    } catch (error) {
+      console.log("Error creating account:", error.message);
+    }
+  };
+
   return (
     <View style={styles.container}> 
           <StatusBar backgroundColor={'#FA812F'} />
@@ -15,21 +31,27 @@ const Signup = ({navigation}) => {
             keyboardType='email-address'
             placeholderTextColor="#888"
             style={styles.input}
+            value={email}
+            onChangeText={setEmail}
           />
           <TextInput
             placeholder="Password"
             placeholderTextColor="#888"
             secureTextEntry
             style={styles.input}
+            value={password}
+            onChangeText={setPassword}
           />
           <TextInput
             placeholder="Confirm Password"
             placeholderTextColor="#888"
             secureTextEntry
             style={styles.input}
+            value={cpassword}
+            onChangeText={setCPassword}
           />
     
-          <TouchableOpacity style={styles.loginButton} onPress={()=>navigation.navigate("NextSignup")}> 
+          <TouchableOpacity style={styles.loginButton} onPress={()=>createAccountHandle()}> 
             <Text style={styles.buttonText}>Continue</Text>
             </TouchableOpacity>
 

@@ -99,6 +99,7 @@ const Meals = () => {
   const scrollRef = useRef();
 
   return (
+    <ScrollView showsVerticalScrollIndicator={false}>
     <View style={styles.container}>
       <Image source={require('../Component/images/header.jpg')} style={styles.topImage} />
       <ScrollView
@@ -119,7 +120,9 @@ const Meals = () => {
           </View>
         ))}
       </ScrollView>
+
     </View>
+    </ScrollView>
   );
 };
 

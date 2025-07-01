@@ -5,8 +5,23 @@ import { useNavigation } from '@react-navigation/native';
 import MyOrders from './MyOrdersScreen/MyOrders';
 import Settings from './Settings/Settings';
 import Cart from '../Cart';
-
-const Profile = ({navigation}) => (
+import { useEffect } from 'react';
+import {firebase,db} from '../../../firebaseConfig';
+import  {collection,addDoc} from 'firebase/firestore';
+const Profile = ({navigation}) => {
+  const handleData = async () => {
+    try {
+      const docRef = await addDoc(collection(db, 'UserProfile'), {
+        name: 'John Doe',  // Sample fields
+        email: 'john@example.com',
+        createdAt: new Date()
+      });
+      console.log('Document written with ID:', docRef.id);
+    } catch (error) {
+      console.error('Error adding document:', error);
+    }
+  };
+return (
   <View style={styles.container}>
     <Image source={require('../../Component/images/header.jpg')} style={styles.coverImage} />
     <View style={styles.profileContent}>
@@ -34,7 +49,7 @@ const Profile = ({navigation}) => (
       </TouchableOpacity>
     </View>
   </View>
-);
+)};
 
 const styles = StyleSheet.create({
   container: {
