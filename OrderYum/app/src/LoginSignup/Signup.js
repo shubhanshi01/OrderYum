@@ -4,8 +4,10 @@ import NextSignup from './NextSignup';
 import Login from './Login';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { firebase,auth } from '../../firebaseConfig';
-
+import { useContext } from 'react';
+import { AuthContext } from '../Context/AuthContext';
 const Signup = ({ navigation }) => {
+  const {userloggeduidHandle}=useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cpassword, setCPassword] = useState("");
@@ -15,6 +17,8 @@ const Signup = ({ navigation }) => {
       const userCredential = await createUserWithEmailAndPassword(auth,email, password);
       const uid = userCredential.user.uid;
       console.log("Account Created Successfully, UID:", userCredential.user.uid);
+      userloggeduidHandle(uid)
+      navigation.navigate(NextSignup)
     } catch (error) {
       console.log("Error creating account:", error.message);
     }

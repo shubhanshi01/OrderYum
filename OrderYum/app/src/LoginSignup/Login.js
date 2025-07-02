@@ -1,7 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View ,Text,StyleSheet,StatusBar,TextInput,TouchableOpacity} from 'react-native';
-
+import { auth } from '../../firebaseConfig';
+import { useContext } from 'react';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { AuthContext } from '../Context/AuthContext';
 const Login = ({ navigation }) => {
+  const {userloggeduidHandle}=useContext(AuthContext);
+
+  
+  const[email,setEmail]=useState("");
+  const[password,setPassword]=useState("");
+
+  const Loginhandler = async () => {
+    // Fix: Use AND (&&) and trim to avoid false positives
+    if (email.trim() !== '' && password.trim() !== '')  {
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user.uid;
+        userloggeduidHandle(user);
+        console.log('Logged in with UID:', user);
+        
+      } catch (error) {
+        console.log('Error logging in:', error.message);
+      }
+    } else {
+      console.log('Please fill in both fields.');
+    }
+  };
   return (
     <View style={styles.container}> 
           <StatusBar backgroundColor={'#FA812F'} />
@@ -15,18 +40,22 @@ const Login = ({ navigation }) => {
             keyboardType='email-address'
             placeholderTextColor="#888"
             style={styles.input}
+            value={email}
+            onChangeText={setEmail}
           />
           <TextInput
             placeholder="Password"
             placeholderTextColor="#888"
             secureTextEntry
             style={styles.input}
+            value={password}
+            onChangeText={setPassword}
           />
 
           </View>
 
     
-          <TouchableOpacity style={styles.loginButton} onPress={()=>alert('Account Created Successfully')}>
+          <TouchableOpacity style={styles.loginButton} onPress={()=>Loginhandler()}>
             <Text style={styles.loginButtonText}>Login</Text>
           </TouchableOpacity>
     
