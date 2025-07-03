@@ -1,6 +1,7 @@
-import React, { useRef, useState } from 'react';
-import {View,Text, StyleSheet, Image, TouchableOpacity, ScrollView} from 'react-native'
-
+import { useNavigation } from '@react-navigation/native'; // Adjust the import path as necessary
+import { useRef } from 'react';
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import ProductPage from '../Component/ProductPage';
 const mealsData = [
   {
     name: 'Paneer Butter Masala',
@@ -96,6 +97,7 @@ const mealsData = [
 ];
 
 const Meals = () => {
+  const navigation = useNavigation();
   const scrollRef = useRef();
 
   return (
@@ -107,7 +109,8 @@ const Meals = () => {
         ref={scrollRef}
       >
         {mealsData.map((meal, idx) => (
-          <View style={styles.card} key={idx}>
+          <TouchableOpacity  onPress={() => navigation.navigate(ProductPage, { meal })}>
+          <View style={styles.card} key={idx} >
             <Image source={meal.image} style={styles.cardImage} />
             <View style={styles.cardContent}>
               <Text style={styles.cardTitle}>{meal.name}</Text>
@@ -118,6 +121,7 @@ const Meals = () => {
               </TouchableOpacity>
             </View>
           </View>
+          </TouchableOpacity>
         ))}
       </ScrollView>
 

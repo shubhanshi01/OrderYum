@@ -1,41 +1,58 @@
-import React from 'react'
-import { View } from 'react-native'
-import { Text, StyleSheet, StatusBar, TextInput, ScrollView } from 'react-native';
+import { collection, onSnapshot } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { ScrollView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { db } from '../../firebaseConfig';
 import Header from '../Component/Header';
-import OfferSlider from '../Component/OfferSlider'; 
+import OfferSlider from '../Component/OfferSlider';
 import Recommended from '../Component/Recommended';
-
 const food = {
+    
     categories: ['Pizza', 'Burger', 'Salad', 'Dessert', 'Drinks'],
     recommended: [
-        { name: 'Margherita Pizza', desc: 'Classic pizza with fresh basil and mozzarella' },
-        { name: 'Cheeseburger', desc: 'Juicy beef patty with cheese and all the fixings' },
-        { name: 'California Roll', desc: 'Sushi roll with crab, avocado, and cucumber' },
-        { name: 'Caesar Salad', desc: 'Crisp romaine lettuce with Caesar dressing and croutons' },
+        { id:'' ,name: 'Margherita Pizza', desc: 'Classic pizza with fresh basil and mozzarella' },
+        
     ]
 };
 
 const Home = () => {
+    const Location="Delhi";
+    const[search,setSearch]=useState("");
+    const[FoodData,setFoodData]=useState([]);
+    const foodDataQuery=collection(db,"FoodData");
+    useEffect(() => {
+        const unsubscribe = onSnapshot(foodDataQuery, snapshot => {
+          setFoodData(snapshot.docs.map(doc => doc.data()));
+        });
+        console.log("Food Data:",FoodData)
+        return () => unsubscribe(); // clean up listener
+    }, [Location]);
+    console.log("fooddata".FoodData)
     return (
         <View style={styles.container}>
             <ScrollView showsVerticalScrollIndicator={false}>
-            <StatusBar backgroundColor={'#FA812F'} barStyle="light-content" />
-            <Header />
+                <StatusBar backgroundColor={'#FA812F'} barStyle="light-content" />
+                <Header />
 
-            <View style={styles.searchSection}>
-                <TextInput
-                    style={styles.searchInput}
-                    placeholder="Search for food or restaurants"
-                    placeholderTextColor="#aaa"
-                />
-            </View>
-            <View style={styles.sectionTitle}>
-                <Text style={styles.titleText}>Popular Categories</Text>
-            </View>
-            <View style={styles.categories}>
+                {/* Search Bar */}
+                <View style={styles.searchSection}>
+                    <TextInput
+                        style={styles.searchInput}
+                        placeholder="Search for food or restaurants"
+                        placeholderTextColor="#aaa"
+                        value={search}
+                        onChangeText={setSearch}
+                        
+                    />
+                </View>
+
+                {/* Categories */}
+                <View style={styles.sectionTitle}>
+                    <Text style={styles.titleText}>Popular Categories</Text>
+                </View>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.categories}>
                     {food.categories.map((category, idx) => (
                         <View style={styles.categoryCard} key={idx}>
+                            <TouchableOpacity>
                             <Text
                                 style={styles.categoryText}
                                 onPress={() => {}}
@@ -43,24 +60,26 @@ const Home = () => {
                             >
                                 {category}
                             </Text>
+                            </TouchableOpacity>
+                            
                         </View>
                     ))}
                 </ScrollView>
-            </View>
 
-            <View style={styles.sectionTitle}>
-                <View>
+                {/* Offer Slider */}
+                <View style={styles.sectionTitle}>
                     <OfferSlider />
                 </View>
-                <View style={{ marginTop: 20 }} />
-                <Text style={styles.titleText}>Recommended For You</Text>
-            </View>
 
-            <Recommended />
+                {/* Recommended */}
+                <View style={styles.sectionTitle}>
+                    <Text style={styles.titleText}>Recommended For You</Text>
+                </View>
+                <Recommended items={food.recommended} />
             </ScrollView>
         </View>
-    )
-}
+    );
+};
 
 export default Home;
 
@@ -104,23 +123,5 @@ const styles = StyleSheet.create({
     },
     categoryText: {
         fontSize: 20,
-    },
-    recommended: {
-        paddingHorizontal: 20,
-    },
-    foodCard: {
-        backgroundColor: '#fff',
-        paddingVertical: 15,
-        paddingHorizontal: 20,
-        borderRadius: 10,
-        marginBottom: 10,
-    },
-    foodName: {
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
-    foodDesc: {
-        fontSize: 14,
-        color: '#666',
     }
 });

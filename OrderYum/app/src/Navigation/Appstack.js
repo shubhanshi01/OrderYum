@@ -1,25 +1,21 @@
-import React from 'react'
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NavigationContainer } from '@react-navigation/native';
-import { View, Text, ImageComponent } from 'react-native';
-import Home from '../MainScreen/Home';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import ProductPage from '../Component/ProductPage';
 import Cart from '../MainScreen/Cart';
-import Profile from '../MainScreen/Profile/Profile';
-import Meals from '../MainScreen/Meals'
-import Settings from '../MainScreen/Profile/Settings/Settings';
+import Home from '../MainScreen/Home';
+import Meals from '../MainScreen/Meals';
 import EditProfile from '../MainScreen/Profile/EditProfile';
 import MyOrders from '../MainScreen/Profile/MyOrdersScreen/MyOrders';
 import TrackOrder from '../MainScreen/Profile/MyOrdersScreen/TrackOrder';
+import Profile from '../MainScreen/Profile/Profile';
 import AboutApp from '../MainScreen/Profile/Settings/AboutApp/AboutApp';
 import ChangePassword from '../MainScreen/Profile/Settings/ChangePassword/ChangePassword';
 import Notification from '../MainScreen/Profile/Settings/Notification/Notification';
+import Settings from '../MainScreen/Profile/Settings/Settings';
+
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
-
-
-
 
 const MainTabs = () => (
   <Tab.Navigator
@@ -56,6 +52,7 @@ const Appstack = () => {
           <Stack.Screen name="AboutApp" component={AboutApp} options={{ title: 'About App', headerShown: true, headerTintColor: '#FA812F' }} />
           <Stack.Screen name="ChangePassword" component={ChangePassword} options={{ title: 'Change Password', headerShown: true, headerTintColor: '#FA812F' }} />
           <Stack.Screen name="Notification" component={Notification} options={{ title: 'notification', headerShown: true, headerTintColor: '#FA812F' }} />
+          <Stack.Screen name="ProductPage" component={ProductPage} options={{ title: 'Product Details', headerShown: true, headerTintColor: '#FA812F' }} />
         </Stack.Navigator>
 
   );
