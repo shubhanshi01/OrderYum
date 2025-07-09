@@ -1,9 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View ,Text,StyleSheet,StatusBar,TextInput,TouchableOpacity} from 'react-native';
 import Login from './Login';
 import { createStackNavigator } from '@react-navigation/stack';
+import { useProfile } from '../Context/AuthContext';
 
 const NextSignup = ({navigation}) => {
+  const { updateProfile } = useProfile();
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [address, setAddress] = useState('');
+  const [phone, setPhone] = useState('');
+
+  const handleSignup = () => {
+    updateProfile({
+      name: `${firstName} ${lastName}`.trim(),
+      address,
+      phone,
+    });
+    navigation.navigate('Login');
+  };
+
   return (
     <View style={styles.container}> 
           <StatusBar backgroundColor={'#FA812F'} />
@@ -14,26 +30,34 @@ const NextSignup = ({navigation}) => {
             placeholder="First Name"
             placeholderTextColor="#888"
             style={styles.input}
+            value={firstName}
+            onChangeText={setFirstName}
           />
           <TextInput
             placeholder="Last Name"
             placeholderTextColor="#888"
             style={styles.input}
+            value={lastName}
+            onChangeText={setLastName}
           />
           <TextInput
             placeholder="Address"
             keyboardType='default'
             placeholderTextColor="#888"
             style={styles.input}
+            value={address}
+            onChangeText={setAddress}
           />
           <TextInput
             placeholder="Phone Number"
             keyboardType='phone-pad'
             placeholderTextColor="#888"
             style={styles.input}
+            value={phone}
+            onChangeText={setPhone}
           />
     
-          <TouchableOpacity style={styles.loginButton} onPress={()=>alert('Account Created Successfully')}>
+          <TouchableOpacity style={styles.loginButton} onPress={handleSignup}>
             <Text style={styles.buttonText}>SignUp</Text>
           </TouchableOpacity>
     

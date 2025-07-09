@@ -1,42 +1,83 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {View,Text,ScrollView} from 'react-native'
 import { useState } from 'react';
 import { FlatList, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import Home from './Home';
-const CartList = {
-    Name: 'Paneer Tikka',
-    price: 200,
-    quantity: 2,
-    total: 400,
-    image: require('../Component/images/paneer.jpg')
-}
-const Cart = ({navigation}) => {
-    return(
+import { useCart } from '../Context/CartContext';
+import { useNavigation } from '@react-navigation/native';
+import { AuthContext } from '../Context/AuthContext';
 
-        <View styles={styles.maincontainer}>
+const Cart = ({navigation}) => {
+    const { cart, removeFromCart, getTotal, updateQuantity, clearCart } = useCart();
+    const nav = useNavigation();
+    const { logout } = useContext(AuthContext);
+    return(
+        <View style={styles.maincontainer}>
         <ScrollView showsVerticalScrollIndicator={false}>       
             <View style={{backgroundColor:'#FA812F', height:60, width:'100%', justifyContent:'center', alignItems:'center'}}>
-
             <TouchableOpacity onPress={()=>navigation.navigate(Home)}>
                 <Text style={styles.button}>Close</Text>
             </TouchableOpacity>
-
         </View>
-        
         <View style={styles.container}>
           <Text style={styles.title}>Cart Items</Text>
-          <View style={styles.containerCardList}>
-            <Image source={CartList.image} style={styles.cardImage} />
-            <View style={styles.cardContent}>
-              <Text style={styles.itemName}>{CartList.Name}</Text>
-              <Text style={styles.itemDetail}>Price: <Text style={styles.price}>₹{CartList.price}</Text></Text>
-              <Text style={styles.itemDetail}>Quantity: <Text style={styles.quantity}>{CartList.quantity}</Text></Text>
-              <Text style={styles.itemDetail}>Total: <Text style={styles.total}>₹{CartList.total}</Text></Text>
-              <TouchableOpacity style={styles.removeButton}>
-                <Text style={styles.removeButtonText}>Remove</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+          {cart.length === 0 ? (
+            <Text style={{textAlign:'center', color:'#888', marginTop:40}}>Your cart is empty.</Text>
+          ) : (
+            cart.map(item => (
+              <View style={styles.containerCardList} key={item.id}>
+                <Image source={item.image} style={styles.cardImage} />
+                <View style={styles.cardContent}>
+                  <Text style={styles.itemName}>{item.name}</Text>
+                  <Text style={styles.itemDetail}>Price: <Text style={styles.price}>{item.price}</Text></Text>
+                  <Text style={styles.itemDetail}>Quantity: <Text style={styles.quantity}>{item.quantity}</Text></Text>
+                  <Text style={styles.itemDetail}>Total: <Text style={styles.total}>₹{parseInt(item.price.replace(/[^0-9]/g, '')) * item.quantity}</Text></Text>
+                  <View style={{flexDirection:'row'}}>
+                    <TouchableOpacity style={styles.removeButton} onPress={() => removeFromCart(item.id)}>
+                      <Text style={styles.removeButtonText}>Remove</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.removeButton} onPress={() => updateQuantity(item.id, item.quantity + 1)}>
+                      <Text style={styles.removeButtonText}>+</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.removeButton} onPress={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))}>
+                      <Text style={styles.removeButtonText}>-</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </View>
+            ))
+          )}
+          <Text style={{fontSize:20, fontWeight:'bold', color:'#27ae60', marginTop:24, textAlign:'right'}}>Total: ₹{getTotal()}</Text>
+          {cart.length > 0 && (
+            <TouchableOpacity style={[styles.button, {marginTop:24, alignSelf:'center'}]} onPress={clearCart}>
+              <Text style={{color:'#fff', fontWeight:'bold'}}>Clear Cart</Text>
+            </TouchableOpacity>
+          )}
+          {cart.length > 0 && (
+            <TouchableOpacity style={[styles.button, {marginTop:24, alignSelf:'center', backgroundColor:'#43aa8b'}]} onPress={()=>nav.navigate('OrderDemo')}>
+              <Text style={{color:'#fff', fontWeight:'bold'}}>Order</Text>
+            </TouchableOpacity>
+          )}
+          <TouchableOpacity
+            style={{
+              backgroundColor: '#E74C3C',
+              paddingHorizontal: 32,
+              paddingVertical: 16,
+              borderRadius: 24,
+              marginTop: 40,
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              shadowColor: '#E74C3C',
+              shadowOffset: { width: 0, height: 4 },
+              shadowOpacity: 0.18,
+              shadowRadius: 8,
+              elevation: 4,
+            }}
+            onPress={logout}
+          >
+            <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 20, letterSpacing: 1 }}>🔒 Logout</Text>
+          </TouchableOpacity>
         </View>
         </ScrollView>
     </View>

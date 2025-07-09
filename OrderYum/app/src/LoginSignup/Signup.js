@@ -55,7 +55,7 @@ const Signup = ({ navigation }) => {
             onChangeText={setCPassword}
           />
     
-          <TouchableOpacity style={styles.loginButton} onPress={()=>createAccountHandle()}> 
+          <TouchableOpacity style={styles.loginButton} onPress={()=>createAccountHandle()} onPress={()=>navigation.navigate(NextSignup)}> 
             <Text style={styles.buttonText}>Continue</Text>
             </TouchableOpacity>
 

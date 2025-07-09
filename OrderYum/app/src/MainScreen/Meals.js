@@ -1,131 +1,47 @@
 import { useNavigation } from '@react-navigation/native'; // Adjust the import path as necessary
 import { useRef } from 'react';
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import mealsData from '../Component/mealsData'; 
+import React, { useEffect, useState } from 'react';
+import { db } from '../../firebaseConfig';
 import ProductPage from '../Component/ProductPage';
-const mealsData = [
-  {
-    name: 'Paneer Butter Masala',
-    desc: 'Rich and creamy curry with soft paneer cubes.',
-    price: '₹220',
-    image:require('../Component/images/paneer.jpg'),
-  },
-  {
-    name: 'Veg Biryani',
-    desc: 'Aromatic rice with fresh vegetables and spices.',
-    price: '₹180',
-    image: require('../Component/images/biryani.jpg'),
-  },
-  {
-    name: 'Dal Makhani',
-    desc: 'Slow-cooked black lentils in a buttery sauce.',
-    price: '₹160',
-    image: require('../Component/images/dal.jpg'),
-  },
-  {
-    name: 'Chole Bhature',
-    desc: 'Spicy chickpeas served with fluffy bhature.',
-    price: '₹140',
-    image: require('../Component/images/chole.jpg'),
-  },
-    {
-      name: 'Margherita Pizza',
-      desc: 'Classic delight with 100% real mozzarella cheese.',
-      price: '₹220',
-      image: require('../Component/images/1.jpg'),},
-    {
-      name: 'Egg Ramen',
-      desc: 'Spicy paneer cubes grilled with saucy ramen perfection.',
-      price: '₹180',
-      image:  require('../Component/images/3.jpg'),
-    },
-    
-    {
-      name: 'Palak Paneer',
-      desc: 'Soft paneer in creamy spinach gravy.',
-      price: '₹200',
-      image: require('../Component/images/palak.jpg'),},
-    {
-      name: 'Masala Dosa',
-      desc: 'Crispy rice crepe with spiced potato filling.',
-      price: '₹120',
-      image: 'https://www.vegrecipesofindia.com/wp-content/uploads/2021/06/masala-dosa-1.jpg',
-    },
-    {
-      name: 'Aloo Paratha',
-      desc: 'Whole wheat flatbread stuffed with spiced potatoes.',
-      price: '₹80',
-      image: require('../Component/images/aloo.jpg'),
-    },
-    {
-      name: 'Rajma Chawal',
-      desc: 'Red kidney beans curry with steamed rice.',
-      price: '₹150',
-      image: require('../Component/images/rajma.jpg'),
-    },
-    {
-      name: 'Pav Bhaji',
-      desc: 'Spiced vegetable mash with buttered buns.',
-      price: '₹130',
-      image: 'https://www.vegrecipesofindia.com/wp-content/uploads/2021/04/pav-bhaji-recipe-1.jpg',
-    },
-    {
-      name: 'Idli Sambar',
-      desc: 'Steamed rice cakes with lentil vegetable stew.',
-      price: '₹100',
-      image: require('../Component/images/idli.jpg'),
-    },
-    {
-      name: 'Vada Pav',
-      desc: 'Spicy potato fritter in a bun with chutneys.',
-      price: '₹60',
-      image: require('../Component/images/vada.jpg'),
-    },
-    {
-      name: 'Malai Kofta',
-      desc: 'Vegetable dumplings in rich creamy gravy.',
-      price: '₹240',
-      image: require('../Component/images/malai.jpg'),
-    },
-    {
-      name: 'Samosa',
-      desc: 'Crispy pastry with spiced potato filling.',
-      price: '₹40',
-      image: require('../Component/images/samosa.jpg'),
-    },
-    
-
-];
+import { useCart } from '../Context/CartContext';
 
 const Meals = () => {
   const navigation = useNavigation();
   const scrollRef = useRef();
+  const [meals, setMeals] = useState(mealsData.Food);
+  const { addToCart } = useCart();
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
-    <View style={styles.container}>
-      <Image source={require('../Component/images/header.jpg')} style={styles.topImage} />
-      <ScrollView
-        contentContainerStyle={styles.cardsContainer}
-        ref={scrollRef}
-      >
-        {mealsData.map((meal, idx) => (
-          <TouchableOpacity  onPress={() => navigation.navigate(ProductPage, { meal })}>
-          <View style={styles.card} key={idx} >
-            <Image source={meal.image} style={styles.cardImage} />
-            <View style={styles.cardContent}>
-              <Text style={styles.cardTitle}>{meal.name}</Text>
-              <Text style={styles.cardDesc}>{meal.desc}</Text>
-              <Text style={styles.cardPrice}>{meal.price}</Text>
-              <TouchableOpacity style={styles.addButton} onPress={() => {}}>
-                <Text style={styles.addButtonText}>Add to Cart</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
-
-    </View>
+      <View style={styles.container}>
+        <Image source={require('../Component/images/header.jpg')} style={styles.topImage} />
+        <ScrollView
+          contentContainerStyle={styles.cardsContainer}
+          ref={scrollRef}
+        >
+          {meals.map((meal, idx) => (
+            <TouchableOpacity key={meal.id} onPress={() => navigation.navigate('ProductPage', { meal })}>
+              <View style={styles.card}>
+                {typeof meal.image === 'string' ? (
+                  <Image source={{ uri: meal.image }} style={styles.cardImage} />
+                ) : (
+                  <Image source={meal.image} style={styles.cardImage} />
+                )}
+                <View style={styles.cardContent}>
+                  <Text style={styles.cardTitle}>{meal.name}</Text>
+                  <Text style={styles.cardDesc}>{meal.desc}</Text>
+                  <Text style={styles.cardPrice}>{meal.price}</Text>
+                  <TouchableOpacity style={styles.addButton} onPress={() => addToCart(meal)}>
+                    <Text style={styles.addButtonText}>Add to Cart</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+      </View>
     </ScrollView>
   );
 };

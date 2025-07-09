@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput, StyleSheet, ScrollView } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView } from 'react-native';
+import { AuthContext } from '../../../../Context/AuthContext';
 
 const ChangePassword = ({ navigation }) => {
+  const { logout } = useContext(AuthContext);
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -20,6 +22,11 @@ const ChangePassword = ({ navigation }) => {
     // TODO: Add your password change logic here (e.g., Firebase updatePassword)
     alert('Password changed successfully!');
     navigation.goBack();
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigation.navigate('Login'); // Navigate to the Login screen after logout
   };
 
   return (
@@ -58,6 +65,26 @@ const ChangePassword = ({ navigation }) => {
           <Text style={styles.cancelButtonText}>Cancel</Text>
         </TouchableOpacity>
       </View>
+      <TouchableOpacity
+        style={{
+          backgroundColor: '#E74C3C',
+          paddingHorizontal: 32,
+          paddingVertical: 16,
+          borderRadius: 24,
+          marginTop: 40,
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'center',
+          shadowColor: '#E74C3C',
+          shadowOffset: { width: 0, height: 4 },
+          shadowOpacity: 0.18,
+          shadowRadius: 8,
+          elevation: 4,
+        }}
+        onPress={handleLogout}
+      >
+        <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 20, letterSpacing: 1 }}>🔒 Logout</Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 };

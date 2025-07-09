@@ -1,36 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, Text, TouchableOpacity, TextInput, StyleSheet, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
-import {firebase,db} from '../../../firebaseConfig';
-import { collection,getDocs } from 'firebase/firestore';
-import { useContext } from 'react';
-import { AuthContext } from '../../Context/AuthContext';
+import { AuthContext, useProfile } from '../../Context/AuthContext';
+
 const EditProfile = ({ navigation }) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [address, setAddress] = useState('');
+  const { profile, updateProfile } = useProfile();
+  const [name, setName] = useState(profile.name);
+  const [email, setEmail] = useState(profile.email);
+  const [phone, setPhone] = useState(profile.phone);
+  const [address, setAddress] = useState(profile.address);
 
-  const {data1}=useContext(AuthContext);
-  console.log("Context data")
-  const handleSave = async () => {
-    try {
-      const querySnapshot = await getDocs(collection(db, "UserProfiles"));
-      console.log("📄 Total documents:", querySnapshot.size);
+  const { logout } = useContext(AuthContext);
 
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        console.log("🧾 Document ID:", doc.id);
-        console.log("🧾 Data:", data);
-      });
-
-      console.log("✅ Data fetched successfully!");
-    } catch (error) {
-      console.error("❌ Error fetching documents:", error.message);
-    }
+  const handleSave = () => {
+    updateProfile({ name, email, phone, address });
+    navigation.goBack();
   };
-  useEffect(()=>{
-    handleSave();
-  }, []);
 
   return (
     <KeyboardAvoidingView
@@ -78,6 +62,12 @@ const EditProfile = ({ navigation }) => {
             <Text style={styles.cancelButtonText}>Cancel</Text>
           </TouchableOpacity>
         </View>
+        <TouchableOpacity
+          style={[styles.logoutButton, {marginTop: 32, backgroundColor: '#E74C3C', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', shadowColor: '#E74C3C', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.18, shadowRadius: 8, elevation: 4 }]}
+          onPress={logout}
+        >
+          <Text style={[styles.saveButtonText, { fontSize: 18, letterSpacing: 1 }]}> Logout</Text>
+        </TouchableOpacity>
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -90,6 +80,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 24,
     backgroundColor: '#FEF3E2',
+  },
+  logoutButton:{
+    marginTop: 28,
+    backgroundColor: '#FA812F',
+    paddingHorizontal: 32,
+    paddingVertical: 12,
+    borderRadius: 24,
+    color:"#ffff",
+    
   },
   title: {
     fontSize: 28,

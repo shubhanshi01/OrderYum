@@ -1,27 +1,33 @@
 import React from 'react';
 import { View, Text, StyleSheet, Touchable, TouchableOpacity } from 'react-native';
-import AboutApp from './AboutApp/AboutApp';
-import ChangePassword from './ChangePassword/ChangePassword';
+import  { useContext} from 'react';
+import { AuthContext} from '../../../Context/AuthContext';
+import ChangePassword from '../Settings/ChangePassword/ChangePassword';
+import AboutApp from '../Settings/AboutApp/AboutApp';
 import Notification from './Notification/Notification';
 const Settings = ({navigation}) => {
+  const { logout } = useContext(AuthContext);
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Settings</Text>
-      <TouchableOpacity style={styles.Themestyle} onPress={() => {navigation.navigate(Notification)}}>
+      <TouchableOpacity style={styles.Themestyle} onPress={() => {navigation.navigate('Notification')}}>
         <Text style={styles.text}>Notifications</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.Themestyle} onPress={()=> {navigation.navigate(ChangePassword)}}>
+      <TouchableOpacity style={styles.Themestyle} onPress={()=> {navigation.navigate('ChangePassword')}}>
       <Text style={styles.text}>Change Password</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.Themestyle} onPress={() => {navigation.navigate(AboutApp)}}>
+      <TouchableOpacity style={styles.Themestyle} onPress={() => {navigation.navigate('AboutApp')}}>
       <Text style={styles.text}> About App</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.Themestyle}>
       <Text  style={styles.text} > Share app</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.logoutButton}>
-      <Text style={styles.LogText}> Log Out</Text>
-    </TouchableOpacity>
+      <TouchableOpacity
+                style={[styles.logoutButton, {marginTop: 32, backgroundColor: '#E74C3C', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', shadowColor: '#E74C3C', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.18, shadowRadius: 8, elevation: 4 }]}
+                onPress={logout}
+              >
+                <Text style={[styles.saveButtonText, { fontSize: 18, letterSpacing: 1 }]}> Logout</Text>
+              </TouchableOpacity>
     </View>
     
   );

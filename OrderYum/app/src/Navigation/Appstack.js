@@ -13,6 +13,7 @@ import AboutApp from '../MainScreen/Profile/Settings/AboutApp/AboutApp';
 import ChangePassword from '../MainScreen/Profile/Settings/ChangePassword/ChangePassword';
 import Notification from '../MainScreen/Profile/Settings/Notification/Notification';
 import Settings from '../MainScreen/Profile/Settings/Settings';
+import OrderDemo from '../MainScreen/OrderDemo';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -53,6 +54,7 @@ const Appstack = () => {
           <Stack.Screen name="ChangePassword" component={ChangePassword} options={{ title: 'Change Password', headerShown: true, headerTintColor: '#FA812F' }} />
           <Stack.Screen name="Notification" component={Notification} options={{ title: 'notification', headerShown: true, headerTintColor: '#FA812F' }} />
           <Stack.Screen name="ProductPage" component={ProductPage} options={{ title: 'Product Details', headerShown: true, headerTintColor: '#FA812F' }} />
+          <Stack.Screen name="OrderDemo" component={OrderDemo} options={{ title: 'Order', headerShown: true, headerTintColor: '#FA812F' }} />
         </Stack.Navigator>
 
   );

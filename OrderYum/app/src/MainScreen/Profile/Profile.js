@@ -8,7 +8,9 @@ import Cart from '../Cart';
 import { useEffect } from 'react';
 import {firebase,db} from '../../../firebaseConfig';
 import  {collection,addDoc} from 'firebase/firestore';
+import { useProfile } from '../../Context/AuthContext';
 const Profile = ({navigation}) => {
+  const { profile } = useProfile();
   const handleData = async () => {
     try {
       const docRef = await addDoc(collection(db, 'UserProfile'), {
@@ -25,15 +27,15 @@ return (
   <View style={styles.container}>
     <Image source={require('../../Component/images/header.jpg')} style={styles.coverImage} />
     <View style={styles.profileContent}>
-      <Text style={styles.name}>Shubhanshi Gupta</Text>
-      <Text style={styles.email}>shubhanshi@example.com</Text>
+      <Text style={styles.name}>{profile.name}</Text>
+      <Text style={styles.email}>{profile.email}</Text>
       <View style={styles.infoSection}>
         <Text style={styles.infoLabel}>Phone:</Text>
-        <Text style={styles.infoValue}>+91 9876543210</Text>
+        <Text style={styles.infoValue}>{profile.phone}</Text>
       </View>
       <View style={styles.infoSection}>
         <Text style={styles.infoLabel}>Address:</Text>
-        <Text style={styles.infoValue}>123, Main Street, Delhi</Text>
+        <Text style={styles.infoValue}>{profile.address}</Text>
       </View>
       <TouchableOpacity style={styles.profileButton} onPress={() => {navigation.navigate(MyOrders)}}>
         <Text style={styles.profileButtonText}>My Orders</Text>

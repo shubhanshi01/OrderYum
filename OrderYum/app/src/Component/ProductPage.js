@@ -1,45 +1,28 @@
 import { useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useCart } from '../Context/CartContext';
 
-const ProductPage = () => {
-  // Temporary hardcoded product data
-  const product = {
-    id: 1,
-    name: 'Margherita Pizza',
-    desc: 'Classic delight with 100% real mozzarella cheese',
-    price: '₹299',
-    inStock: 'Available',
-    image: require('./images/Margherita.jpg'), // Make sure this path is correct
-  };
-
+const ProductPage = ({ route }) => {
+  const { meal } = route.params;
+  const { addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
 
   return (
     <View style={styles.container}>
-      <Image source={product.image} style={styles.image} />
-      <Text style={styles.name}>{product.name}</Text>
-      <Text style={styles.desc}>{product.desc}</Text>
-      <Text style={styles.price}>{product.price}</Text>
-      <Text
-        style={[
-          styles.stock,
-          { color: product.inStock === 'Available' ? '#43aa8b' : '#e63946' },
-        ]}
-      >
-        {product.inStock}
-      </Text>
-
+      <Image source={typeof meal.image === 'string' ? { uri: meal.image } : meal.image} style={styles.image} />
+      <Text style={styles.name}>{meal.name}</Text>
+      <Text style={styles.desc}>{meal.desc}</Text>
+      <Text style={styles.price}>{meal.price}</Text>
       <View style={styles.buttonRow}>
         <TouchableOpacity
           style={[styles.button, { backgroundColor: '#FF914D' }]}
-          onPress={() => alert(`Added ${product.name} to cart!`)}
+          onPress={() => addToCart({ ...meal, quantity })}
         >
           <Text style={styles.buttonText}>Add to Cart</Text>
         </TouchableOpacity>
-
         <TouchableOpacity
           style={[styles.button, { backgroundColor: '#43aa8b' }]}
-          onPress={() => alert(`Ordered ${product.name}!`)}
+          onPress={() => alert(`Ordered ${meal.name}!`)}
         >
           <Text style={styles.buttonText}>Order Now</Text>
         </TouchableOpacity>
@@ -77,11 +60,6 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: '700',
     color: '#5f6dff',
-  },
-  stock: {
-    fontSize: 16,
-    marginTop: 4,
-    fontWeight: '600',
   },
   buttonRow: {
     flexDirection: 'row',
